@@ -1,0 +1,7 @@
+get topography 3d model - contour map creator, draw over contour lines in modelling software
+add buildings - uwe map, use rough shapes, make sure buildings include an entry point
+stylise - pixel art render texture and toon shader
+plot what is counted as possible routes - consider how to know where buildings can be walked through - doors and overhangs
+game setup - player runs on set path and can jump, slide, turn left + right, has follow camera, consider if the player is human (and how this affects the scale of the map)
+calculate best route (will be hard) - A* pathfinding?
+game finish
