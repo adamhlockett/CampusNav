@@ -1,3 +1,10 @@
+game setup - player runs on set path and can jump, slide, turn left + right, has follow camera, consider if the player is human (and how this affects the scale of the map)
+- player ought to move along splines rather than running straight. there should be 3 parallel splines like temple run
+-add turning
+-add jump
+-add slide
+
+
 get topography 3d model - contour map creator, draw over contour lines in modelling software
 
 
@@ -6,15 +13,7 @@ add buildings - uwe map, use rough shapes, make sure buildings include an entry 
 
 
 
-stylise - pixel art render texture and toon shader
-
-
-
 plot what is counted as possible routes - consider how to know where buildings can be walked through - doors and overhangs, include some key indoor areas
-
-
-
-game setup - player runs on set path and can jump, slide, turn left + right, has follow camera, consider if the player is human (and how this affects the scale of the map)
 
 
 
@@ -23,4 +22,3 @@ calculate best route - A* pathfinding?, Dijkstra's algorithm, bellman-ford algor
 
 
 game finish
-
