@@ -13,6 +13,10 @@ namespace AstronautPlayer
 		private CharacterController controller;
 		[SerializeField] SplineContainer splineContainer;
 		private SplinePath path;
+		[SerializeField] LineRenderer lineRenderer;
+
+		private Vector3 currentPos;
+		private int currentIndex;
 
 		public float speed = 1.0f;
 		public float turnSpeed = 400.0f;
@@ -35,6 +39,22 @@ namespace AstronautPlayer
 			//});
 			//
 			//StartCoroutine(Follow());
+		}
+
+		private void Update()
+		{
+			currentPos = transform.position;
+
+			Vector3 targetPos = lineRenderer.GetPosition(currentIndex);
+			Vector3 dir = (targetPos - currentPos).normalized;
+			Quaternion targetRot = Quaternion.LookRotation(dir);
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, speed * Time.deltaTime);
+			transform.position += dir * speed * Time.deltaTime;
+
+			if(Vector3.Distance(currentPos, targetPos) < 0.1f) 
+			{
+				currentIndex = (currentIndex + 1) % lineRenderer.positionCount;
+			}
 		}
 
 		IEnumerator Follow()
