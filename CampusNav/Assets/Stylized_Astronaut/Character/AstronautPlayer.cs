@@ -14,19 +14,27 @@ namespace AstronautPlayer
 		[SerializeField] SplineContainer splineContainer;
 		private SplinePath path;
 		[SerializeField] LineRenderer lineRenderer;
+		private Rigidbody rb;
 
 		private Vector3 currentPos;
 		private int currentIndex;
 
-		public float speed = 1.0f;
+		public float speed = 1.0f, smoothing = 2.0f;
 		public float turnSpeed = 400.0f;
 		private Vector3 moveDirection = Vector3.zero;
 		public float gravity = 20.0f;
 		private float progressRatio, progress, totalLength;
+		float distToGround;
+		private Vector3 jump;
+		private float jumpBy = 2000.0f;
+
+		public bool isGrounded;
+
 
 		void Start () {
 			controller = GetComponent <CharacterController>();
 			anim = gameObject.GetComponentInChildren<Animator>();
+			rb = GetComponent<Rigidbody>();
 			anim.SetInteger("AnimationPar", 1);
 
 			//Matrix4x4 localToWorldMatrix = splineContainer.transform.localToWorldMatrix;
@@ -39,6 +47,7 @@ namespace AstronautPlayer
 			//});
 			//
 			//StartCoroutine(Follow());
+			jump = new Vector3(0.0f, 20.0f, 0.0f);
 		}
 
 		private void Update()
@@ -47,35 +56,45 @@ namespace AstronautPlayer
 
 			Vector3 targetPos = lineRenderer.GetPosition(currentIndex);
 			Vector3 dir = (targetPos - currentPos).normalized;
-			Quaternion targetRot = Quaternion.LookRotation(dir);
-			transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, speed * Time.deltaTime);
+			//Quaternion targetRot = Quaternion.LookRotation(dir);
+			float targetRotYaw = Quaternion.LookRotation(dir).y;
+			Quaternion targetRot = Quaternion.Euler(0, targetRotYaw, 0);
+			//transform.rotation = Quaternion.Euler(0, targetRotYaw, 0);
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
+			// = new Quaternion(0, rot.y * 100, 0, 0);
 			transform.position += dir * speed * Time.deltaTime;
 
 			if(Vector3.Distance(currentPos, targetPos) < 0.1f) 
 			{
 				currentIndex = (currentIndex + 1) % lineRenderer.positionCount;
 			}
-		}
 
-		IEnumerator Follow()
-		{
-			for(int n = 0; ; ++n)
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
-				progress = 0;
-				while (progressRatio <= 1f)
-				{
-					float3 pos = path.EvaluatePosition(progressRatio);
-					float3 direction = path.EvaluateTangent(progressRatio);
-
-					transform.position = pos;
-					transform.LookAt(pos + direction);
-
-					progressRatio += speed * Time.deltaTime;
-
-					progress = progressRatio * totalLength;
-					yield return null;
-				}
+				transform.position += new Vector3(0, jumpBy * Time.deltaTime, 0);
 			}
 		}
+
+
+		//IEnumerator Follow()
+		//{
+		//	for(int n = 0; ; ++n)
+		//	{
+		//		progress = 0;
+		//		while (progressRatio <= 1f)
+		//		{
+		//			float3 pos = path.EvaluatePosition(progressRatio);
+		//			float3 direction = path.EvaluateTangent(progressRatio);
+		//
+		//			transform.position = pos;
+		//			transform.LookAt(pos + direction);
+		//
+		//			progressRatio += speed * Time.deltaTime;
+		//
+		//			progress = progressRatio * totalLength;
+		//			yield return null;
+		//		}
+		//	}
+		//}
 	}
 }

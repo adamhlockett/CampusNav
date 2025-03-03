@@ -28,6 +28,6 @@ public class FollowCam : MonoBehaviour
         //transform.LookAt(player);
         //transform.Translate(Vector3.right * Time.deltaTime);
 
-        transform.RotateAround(player.position, player.forward, Time.deltaTime * smoothing);
+        //transform.RotateAround(player.position, player.forward, Time.deltaTime * smoothing);
     }
 }
