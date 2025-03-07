@@ -26,9 +26,10 @@ namespace AstronautPlayer
 		private float progressRatio, progress, totalLength;
 		float distToGround;
 		private Vector3 jump;
-		private float jumpBy = 2000.0f;
+		private float jumpBy = 10.0f;
+		private bool grounded = true;
 
-		public bool isGrounded;
+		//public bool isGrounded;
 
 
 		void Start () {
@@ -47,7 +48,7 @@ namespace AstronautPlayer
 			//});
 			//
 			//StartCoroutine(Follow());
-			jump = new Vector3(0.0f, 20.0f, 0.0f);
+			jump = new Vector3(0.0f, 2.0f, 0.0f);
 		}
 
 		private void Update()
@@ -55,28 +56,53 @@ namespace AstronautPlayer
 			currentPos = transform.position;
 
 			Vector3 targetPos = lineRenderer.GetPosition(currentIndex);
-			Vector3 dir = (targetPos - currentPos).normalized;
+			//Vector3 rotDir = (targetPos - currentPos).normalized;
+			Vector3 rotDir = new Vector3((targetPos.x - currentPos.x), 0, (targetPos.z - currentPos.z)).normalized;
 
-			Quaternion targetRot = Quaternion.LookRotation(dir);
+			Quaternion targetRot = Quaternion.LookRotation(rotDir);
 			Quaternion newRot = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
-			transform.rotation = Quaternion.Euler(0, newRot.eulerAngles.y, 0);
+			/*if (grounded) */transform.rotation = Quaternion.Euler(0, newRot.eulerAngles.y, 0);
 
 			//transform.position += dir * speed * Time.deltaTime;
 
-			Vector3 newPos = new Vector3(dir.x * speed * Time.deltaTime, dir.y * speed * Time.deltaTime, dir.z * speed * Time.deltaTime);
+			Vector3 moveDir = new Vector3(targetPos.x - currentPos.x, 0, targetPos.z - currentPos.z).normalized;
+
+			Vector3 newPos = new Vector3(moveDir.x * speed * Time.deltaTime, 0, moveDir.z * speed * Time.deltaTime);
 			transform.position += new Vector3(newPos.x, 0, newPos.z);
 
 
-			if (Vector3.Distance(currentPos, targetPos) < 0.1f) 
+			if (Vector3.Distance(new Vector3(currentPos.x, 0, currentPos.z), new Vector3(targetPos.x, 0, targetPos.z)) < 0.1f) 
 			{
 				currentIndex = (currentIndex + 1) % lineRenderer.positionCount;
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space) && grounded)
 			{
-				transform.position += new Vector3(0, jumpBy * Time.deltaTime, 0);
+				//transform.position += new Vector3(0, jumpBy * Time.deltaTime, 0);
+				rb.AddForce(jump * jumpBy, ForceMode.Impulse);
+				grounded = false;
 			}
+
+			Debug.Log(grounded);
 		}
+
+		//bool IsGrounded() { return GetComponent<Rigidbody>().velocity.y <= 0.1f; }
+
+		//private void OnTriggerEnter(Collider other)
+		//{
+		//	grounded = true;
+		//}
+
+		private void OnTriggerStay(Collider other)
+		{
+			grounded = true;
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			grounded = false;
+		}
+
 
 
 		//IEnumerator Follow()
