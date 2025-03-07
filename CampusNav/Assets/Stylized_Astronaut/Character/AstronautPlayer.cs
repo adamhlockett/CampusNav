@@ -56,15 +56,18 @@ namespace AstronautPlayer
 
 			Vector3 targetPos = lineRenderer.GetPosition(currentIndex);
 			Vector3 dir = (targetPos - currentPos).normalized;
-			//Quaternion targetRot = Quaternion.LookRotation(dir);
-			float targetRotYaw = Quaternion.LookRotation(dir).y;
-			Quaternion targetRot = Quaternion.Euler(0, targetRotYaw, 0);
-			//transform.rotation = Quaternion.Euler(0, targetRotYaw, 0);
-			transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
-			// = new Quaternion(0, rot.y * 100, 0, 0);
-			transform.position += dir * speed * Time.deltaTime;
 
-			if(Vector3.Distance(currentPos, targetPos) < 0.1f) 
+			Quaternion targetRot = Quaternion.LookRotation(dir);
+			Quaternion newRot = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
+			transform.rotation = Quaternion.Euler(0, newRot.eulerAngles.y, 0);
+
+			//transform.position += dir * speed * Time.deltaTime;
+
+			Vector3 newPos = new Vector3(dir.x * speed * Time.deltaTime, dir.y * speed * Time.deltaTime, dir.z * speed * Time.deltaTime);
+			transform.position += new Vector3(newPos.x, 0, newPos.z);
+
+
+			if (Vector3.Distance(currentPos, targetPos) < 0.1f) 
 			{
 				currentIndex = (currentIndex + 1) % lineRenderer.positionCount;
 			}
