@@ -88,8 +88,9 @@ namespace AstronautPlayer
 				//StartCoroutine(CameraJumpChange());
 			}
 
-			cam.position = new Vector3(cam.position.x, cameraStandardPos, cam.position.z);
+			if (grounded) { cameraStandardPos = transform.position.y + 9.9f; }
 
+			cam.position = new Vector3(cam.position.x, cameraStandardPos, cam.position.z);
 		}
 
 		//bool IsGrounded() { return GetComponent<Rigidbody>().velocity.y <= 0.1f; }
