@@ -28,6 +28,10 @@ namespace AstronautPlayer
 		private Vector3 jump;
 		private float jumpBy = 10.0f;
 		private bool grounded = true;
+		//public float cameraJumpPos = 9.5f, cameraStandardPos = 9.9f;
+		private float cameraStandardPos = 9.9f;
+
+		[SerializeField] Transform cam;
 
 		//public bool isGrounded;
 
@@ -81,9 +85,11 @@ namespace AstronautPlayer
 				//transform.position += new Vector3(0, jumpBy * Time.deltaTime, 0);
 				rb.AddForce(jump * jumpBy, ForceMode.Impulse);
 				grounded = false;
+				//StartCoroutine(CameraJumpChange());
 			}
 
-			Debug.Log(grounded);
+			cam.position = new Vector3(cam.position.x, cameraStandardPos, cam.position.z);
+
 		}
 
 		//bool IsGrounded() { return GetComponent<Rigidbody>().velocity.y <= 0.1f; }
@@ -103,7 +109,12 @@ namespace AstronautPlayer
 			grounded = false;
 		}
 
-
+		//IEnumerator CameraJumpChange()
+		//{
+		//	cam.position = new Vector3(cam.position.x, cameraJumpPos, cam.position.z);
+		//	yield return new WaitForSeconds(1.5f);
+		//	cam.position = new Vector3(cam.position.x, cameraStandardPos, cam.position.z);
+		//}
 
 		//IEnumerator Follow()
 		//{
