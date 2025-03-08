@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ChooseRoute : MonoBehaviour
+{
+    private Persist persistentObject;
+    private string chosenStartPoint, chosenEndPoint;
+    [SerializeField] GameObject startPoint, endPoint, player;
+    private GameObject pointsHolder, newStartPoint, newEndPoint;
+    [SerializeField] PathPlotter pathPlotter;
+
+    private void Start()
+    {
+        persistentObject = GameObject.Find("DropdownDataHolder").GetComponent<Persist>();
+
+        chosenStartPoint = persistentObject.chosenStartPoint;
+        chosenEndPoint = persistentObject.chosenEndPoint;
+
+        pointsHolder = GameObject.FindGameObjectWithTag("PointsHolder");
+
+        newStartPoint = pointsHolder.transform.Find(chosenStartPoint).gameObject;
+        newEndPoint = pointsHolder.transform.Find(chosenEndPoint).gameObject;
+
+        startPoint.transform.position = newStartPoint.transform.position;
+        endPoint.transform.position = newEndPoint.transform.position;
+
+        player.transform.position = startPoint.transform.position;
+
+        pathPlotter.Plot();
+    }
+
+    private void Update()
+    {
+        Debug.Log(chosenStartPoint + " to " + chosenEndPoint);
+    }
+}

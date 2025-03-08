@@ -13,7 +13,7 @@ public class PathPlotter : MonoBehaviour
     private NavMeshPath navMeshPath;
     private List<Vector3> splinePoints = new List<Vector3>();
 
-    private void Start()
+    public void Plot()
     {
         navMeshPath = new NavMeshPath();
         DrawSpline();
