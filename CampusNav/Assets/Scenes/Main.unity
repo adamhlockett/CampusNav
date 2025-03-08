@@ -10113,7 +10113,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 3000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -13743,7 +13743,7 @@ MonoBehaviour:
     Probability: 0
   m_Method: 1
   m_Space: 0
-  m_Spacing: {x: 7.5, y: 7.5}
+  m_Spacing: {x: 2, y: 2}
   m_Up: 2
   m_Forward: 4
   m_PositionOffset:
@@ -13764,8 +13764,8 @@ MonoBehaviour:
     space: 0
   m_ScaleOffset:
     setup: 1
-    min: {x: 0, y: 0, z: 0.65}
-    max: {x: 0, y: 0, z: 0.92}
+    min: {x: 0, y: 0, z: 1.17}
+    max: {x: 0, y: 0, z: 2.39}
     randomX: 0
     randomY: 0
     randomZ: 0
@@ -18041,9 +18041,9 @@ MonoBehaviour:
         z: 24.584276
       Rotation:
         value:
-          x: 0.029516248
+          x: 0.029516252
           y: 0.043594345
-          z: 0.017569302
+          z: 0.017569346
           w: 0.9984586
     - Position:
         x: 191.56306
@@ -18095,10 +18095,10 @@ MonoBehaviour:
         z: 61.216812
       Rotation:
         value:
-          x: -0.10461721
-          y: 0.56360006
-          z: -0.1494746
-          w: 0.8056472
+          x: -0.024452189
+          y: 0.57561713
+          z: -0.093020834
+          w: 0.8120432
     - Position:
         x: 359.2645
         y: -6.2739563
@@ -18113,10 +18113,10 @@ MonoBehaviour:
         z: 22.51013
       Rotation:
         value:
-          x: -0.1348619
-          y: 0.59688085
-          z: -0.0814976
-          w: 0.78670436
+          x: -0.13486207
+          y: 0.5968808
+          z: -0.08149781
+          w: 0.7867043
     - Position:
         x: 409.5231
         y: 5.5999985
