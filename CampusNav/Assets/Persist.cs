@@ -9,6 +9,7 @@ public class Persist : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        chosenStartPoint = "South Entrance";
+        chosenEndPoint = "Student Union";
     }
-
 }

@@ -29,7 +29,7 @@ namespace AstronautPlayer
 		private float jumpBy = 10.0f;
 		private bool grounded = true;
 		//public float cameraJumpPos = 9.5f, cameraStandardPos = 9.9f;
-		private float cameraStandardPos = 9.9f;
+		private float cameraStandardHeight;
 
 		[SerializeField] Transform cam;
 
@@ -52,7 +52,8 @@ namespace AstronautPlayer
 			//});
 			//
 			//StartCoroutine(Follow());
-			jump = new Vector3(0.0f, 2.0f, 0.0f);
+			jump = new Vector3(0.0f, 4.0f, 0.0f);
+			cameraStandardHeight = /*cam.position.y*/ 43.86f;
 		}
 
 		private void Update()
@@ -87,9 +88,9 @@ namespace AstronautPlayer
 				//StartCoroutine(CameraJumpChange());
 			}
 
-			if (grounded) { cameraStandardPos = transform.position.y + 9.9f; }
+			if (grounded) { cameraStandardHeight = transform.position.y + 9.9f; }
 
-			cam.position = new Vector3(cam.position.x, cameraStandardPos, cam.position.z);
+			cam.position = new Vector3(cam.position.x, cameraStandardHeight, cam.position.z);
 		}
 
 		//bool IsGrounded() { return GetComponent<Rigidbody>().velocity.y <= 0.1f; }

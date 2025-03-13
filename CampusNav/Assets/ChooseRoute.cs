@@ -12,10 +12,17 @@ public class ChooseRoute : MonoBehaviour
 
     private void Start()
     {
-        persistentObject = GameObject.Find("DropdownDataHolder").GetComponent<Persist>();
-
-        chosenStartPoint = persistentObject.chosenStartPoint;
-        chosenEndPoint = persistentObject.chosenEndPoint;
+        if (GameObject.Find("DropdownDataHolder") != null)
+        {
+            persistentObject = GameObject.Find("DropdownDataHolder").GetComponent<Persist>();
+            chosenStartPoint = persistentObject.chosenStartPoint;
+            chosenEndPoint = persistentObject.chosenEndPoint;
+        }
+        else
+        {
+            chosenStartPoint = "South Entrance";
+            chosenEndPoint = "Student Union";
+        }
 
         pointsHolder = GameObject.FindGameObjectWithTag("PointsHolder");
 
