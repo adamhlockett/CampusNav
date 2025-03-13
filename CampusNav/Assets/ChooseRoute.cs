@@ -25,7 +25,7 @@ public class ChooseRoute : MonoBehaviour
         startPoint.transform.position = newStartPoint.transform.position;
         endPoint.transform.position = newEndPoint.transform.position;
 
-        player.transform.position = startPoint.transform.position;
+        player.transform.position = new Vector3(startPoint.transform.position.x, startPoint.transform.position.y + 15, startPoint.transform.position.z);
 
         pathPlotter.Plot();
     }

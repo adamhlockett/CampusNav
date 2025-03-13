@@ -83,8 +83,7 @@ namespace AstronautPlayer
 			if (Input.GetKeyDown(KeyCode.Space) && grounded)
 			{
 				//transform.position += new Vector3(0, jumpBy * Time.deltaTime, 0);
-				rb.AddForce(jump * jumpBy, ForceMode.Impulse);
-				grounded = false;
+				Jump();
 				//StartCoroutine(CameraJumpChange());
 			}
 
@@ -107,6 +106,13 @@ namespace AstronautPlayer
 
 		private void OnTriggerExit(Collider other)
 		{
+			grounded = false;
+		}
+
+
+		public void Jump()
+		{
+			rb.AddForce(jump * jumpBy, ForceMode.Impulse);
 			grounded = false;
 		}
 
