@@ -9,4 +9,9 @@ public class PlayAgain : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
     }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene("Main");
+    }
 }

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Win.unity
     guid: d4e05efc0b0978947ab0942fcabbaf08
+  - enabled: 1
+    path: Assets/Scenes/Lose.unity
+    guid: 0bc85338dae82844db4b5dccadde5b11
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 57b44eddc124a884982c7749b1952ad4, type: 2}
   m_UseUCBPForAssetBundles: 0

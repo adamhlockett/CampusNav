@@ -7,6 +7,13 @@ public class PlayButton : MonoBehaviour
 {
     [SerializeField] Persist persistentDataHolder;
     [SerializeField] GameObject warningText;
+
+    private void Start()
+    {
+        persistentDataHolder = GameObject.Find("DropdownDataHolder").GetComponent<Persist>();
+        persistentDataHolder.chosenStartPoint = "A Block";
+        persistentDataHolder.chosenEndPoint = "A Block";
+    }
     public void LaunchGame()
     {
         if(persistentDataHolder.chosenStartPoint == persistentDataHolder.chosenEndPoint)
