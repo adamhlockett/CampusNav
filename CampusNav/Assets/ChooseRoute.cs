@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ChooseRoute : MonoBehaviour
@@ -9,6 +10,7 @@ public class ChooseRoute : MonoBehaviour
     [SerializeField] GameObject startPoint, endPoint, player;
     private GameObject pointsHolder, newStartPoint, newEndPoint;
     [SerializeField] PathPlotter pathPlotter;
+    [SerializeField] TextMeshProUGUI routeText;
 
     private void Start()
     {
@@ -23,6 +25,8 @@ public class ChooseRoute : MonoBehaviour
             chosenStartPoint = "South Entrance";
             chosenEndPoint = "Student Union";
         }
+
+        routeText.text = "FROM: " + chosenStartPoint + "\nTO: " + chosenEndPoint;
 
         pointsHolder = GameObject.FindGameObjectWithTag("PointsHolder");
 
@@ -39,6 +43,6 @@ public class ChooseRoute : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(chosenStartPoint + " to " + chosenEndPoint);
+        //Debug.Log(chosenStartPoint + " to " + chosenEndPoint);
     }
 }
