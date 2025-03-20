@@ -67,7 +67,7 @@ namespace AstronautPlayer
 			Quaternion targetRot = Quaternion.LookRotation(rotDir);
 			Quaternion newRot = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
 			/*if (grounded) */transform.rotation = Quaternion.Euler(0, newRot.eulerAngles.y, 0);
-
+			
 			//transform.position += dir * speed * Time.deltaTime;
 
 			Vector3 moveDir = new Vector3(targetPos.x - currentPos.x, 0, targetPos.z - currentPos.z).normalized;
@@ -81,7 +81,7 @@ namespace AstronautPlayer
 				currentIndex = (currentIndex + 1) % lineRenderer.positionCount;
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space) && grounded)
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				//transform.position += new Vector3(0, jumpBy * Time.deltaTime, 0);
 				Jump();
@@ -91,6 +91,7 @@ namespace AstronautPlayer
 			if (grounded) { cameraStandardHeight = transform.position.y + 9.9f; }
 
 			cam.position = new Vector3(cam.position.x, cameraStandardHeight, cam.position.z);
+			Debug.Log(grounded);
 		}
 
 		//bool IsGrounded() { return GetComponent<Rigidbody>().velocity.y <= 0.1f; }
@@ -113,6 +114,7 @@ namespace AstronautPlayer
 
 		public void Jump()
 		{
+			if (!grounded) return;
 			rb.AddForce(jump * jumpBy, ForceMode.Impulse);
 			grounded = false;
 		}
