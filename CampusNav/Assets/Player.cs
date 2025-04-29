@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private float jumpTimer = 0f, jumpTimerMax = 2.5f;
     private bool jumpTimerOn = false, canJump = true;
     [SerializeField] GameObject cam, camPoint;
+    private float rotSpeed = 5f;
 
 
     private void Start()
@@ -65,6 +66,9 @@ public class Player : MonoBehaviour
             if(direction != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(direction);
+
+                //Quaternion targetRot = Quaternion.LookRotation(direction);
+                //transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, rotSpeed * Time.deltaTime);
             }
 
             if (t >= 1f)
