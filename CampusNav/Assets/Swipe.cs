@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Swipe : MonoBehaviour
 {
-    public AstronautPlayer.AstronautPlayer player;
+    public Player player;
     private Vector2 startTouchPos, endTouchPos;
 
     private void Update()

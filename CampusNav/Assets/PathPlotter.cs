@@ -7,6 +7,7 @@ public class PathPlotter : MonoBehaviour
 {
     public Transform startPoint;
     public Transform endPoint;
+    [SerializeField] Player player;
 
     public LineRenderer lineRenderer;
 
@@ -27,6 +28,7 @@ public class PathPlotter : MonoBehaviour
             lineRenderer.positionCount = splinePoints.Count;
             lineRenderer.SetPositions(splinePoints.ToArray());
         }
+        player.LateStart();
     }
 
     private List<Vector3> Smooth(Vector3[] corners)

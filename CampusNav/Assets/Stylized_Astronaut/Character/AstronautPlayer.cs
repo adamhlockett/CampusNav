@@ -28,6 +28,7 @@ namespace AstronautPlayer
 		private Vector3 jump;
 		private float jumpBy = 10.0f;
 		private bool grounded = true;
+		Vector3 newPos = Vector3.zero;
 		//public float cameraJumpPos = 9.5f, cameraStandardPos = 9.9f;
 		private float cameraStandardHeight;
 
@@ -37,7 +38,7 @@ namespace AstronautPlayer
 
 
 		void Start () {
-			controller = GetComponent <CharacterController>();
+			controller = GetComponent<CharacterController>();
 			anim = gameObject.GetComponentInChildren<Animator>();
 			rb = GetComponent<Rigidbody>();
 			anim.SetInteger("AnimationPar", 1);
@@ -62,18 +63,23 @@ namespace AstronautPlayer
 
 			Vector3 targetPos = lineRenderer.GetPosition(currentIndex);
 			//Vector3 rotDir = (targetPos - currentPos).normalized;
-			Vector3 rotDir = new Vector3((targetPos.x - currentPos.x), 0, (targetPos.z - currentPos.z)).normalized;
 
+			Vector3 rotDir = new Vector3((targetPos.x - currentPos.x), 0, (targetPos.z - currentPos.z)).normalized;
 			Quaternion targetRot = Quaternion.LookRotation(rotDir);
-			Quaternion newRot = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
-			/*if (grounded) */transform.rotation = Quaternion.Euler(0, newRot.eulerAngles.y, 0);
+
+			//Quaternion newRot = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
+			//transform.rotation = Quaternion.Euler(0, newRot.eulerAngles.y, 0);
+			//Quaternion newRot = Quaternion.Slerp(transform.rotation, targetRot, smoothing * Time.deltaTime);
+
+			//if ((int)targetRot.x > (int)transform.rotation.x || (int)targetRot.x < (int)transform.rotation.x)
+			//	transform.rotation = targetRot;
 			
 			//transform.position += dir * speed * Time.deltaTime;
 
 			Vector3 moveDir = new Vector3(targetPos.x - currentPos.x, 0, targetPos.z - currentPos.z).normalized;
 
-			Vector3 newPos = new Vector3(moveDir.x * speed * Time.deltaTime, 0, moveDir.z * speed * Time.deltaTime);
-			transform.position += new Vector3(newPos.x, 0, newPos.z);
+			newPos = new Vector3(moveDir.x * speed * Time.deltaTime, 0, moveDir.z * speed * Time.deltaTime);
+			
 
 
 			if (Vector3.Distance(new Vector3(currentPos.x, 0, currentPos.z), new Vector3(targetPos.x, 0, targetPos.z)) < 0.1f) 
@@ -94,14 +100,19 @@ namespace AstronautPlayer
 			Debug.Log(grounded);
 		}
 
-		//bool IsGrounded() { return GetComponent<Rigidbody>().velocity.y <= 0.1f; }
+        private void FixedUpdate()
+        {
+            transform.position += new Vector3(newPos.x, 0, newPos.z);
+        }
 
-		//private void OnTriggerEnter(Collider other)
-		//{
-		//	grounded = true;
-		//}
+        //bool IsGrounded() { return GetComponent<Rigidbody>().velocity.y <= 0.1f; }
 
-		private void OnTriggerStay(Collider other)
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //	grounded = true;
+        //}
+
+        private void OnTriggerStay(Collider other)
 		{
 			grounded = true;
 		}
