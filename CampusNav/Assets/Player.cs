@@ -81,16 +81,18 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //transform.position += new Vector3(0, jumpBy * Time.deltaTime, 0);
-            if (canJump) Jump();
+            Jump();
             //StartCoroutine(CameraJumpChange());
         }
     }
 
-
-
     public void Jump()
     {
-        Debug.Log("JUMP");
+        if (!canJump)
+        {
+            return;
+        }
+            Debug.Log("JUMP");
         rb.AddForce(jump * jumpBy, ForceMode.Impulse);
         canJump = false;
         jumpTimerOn = true;
